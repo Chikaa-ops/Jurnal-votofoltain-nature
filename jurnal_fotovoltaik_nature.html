@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fotovoltaik Tropis - Penelitian Energi Surya Indonesia</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --forest-dark: #1b4332;
+            --forest-mid: #2d6a4f;
+            --earth-brown: #8b7355;
+            --leaf-green: #52b788;
+            --sun-gold: #d4a574;
+            --sky-blue: #a8dadc;
+            --light-bg: #f1faee;
+            --cream: #fffbf0;
+            --text-dark: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Georgia', serif;
+            line-height: 1.9;
+            color: var(--text-dark);
+            background: linear-gradient(180deg, var(--light-bg) 0%, #f8f5f0 100%);
+            min-height: 100vh;
+            padding: 20px 0;
+            position: relative;
+        }
+
+        /* Subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(45, 106, 79, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(212, 165, 116, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            background: var(--cream);
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(27, 67, 50, 0.15);
+            overflow: hidden;
+            animation: growIn 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid rgba(82, 183, 136, 0.2);
+        }
+
+        @keyframes growIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Header dengan tema alam tropis */
+        .header {
+            background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-mid) 50%, var(--leaf-green) 100%);
+            color: var(--cream);
+            padding: 70px 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative elements */
+        .header::before {
+            content: '🌿';
+            position: absolute;
+            font-size: 400px;
+            opacity: 0.08;
+            top: -80px;
+            left: -100px;
+            animation: sway 4s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '☀️';
+            position: absolute;
+            font-size: 350px;
+            opacity: 0.08;
+            bottom: -100px;
+            right: -50px;
+            animation: rotate 8s linear infinite;
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            letter-spacing: -1px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header .subtitle {
+            font-size: 1.25em;
+            opacity: 0.95;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-weight: 400;
+        }
+
+        .header .meta {
+            font-size: 0.95em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+        }
+
+        /* Divider */
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--sun-gold), transparent);
+            margin: 20px 0;
+        }
+
+        /* Tab Navigation - Organic style */
+        .tabs {
+            display: flex;
+            background: linear-gradient(90deg, var(--light-bg) 0%, var(--cream) 100%);
+            border-bottom: 2px solid var(--leaf-green);
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 25px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 12px 22px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 2px solid var(--leaf-green);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--forest-dark);
+            transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+            white-space: nowrap;
+            font-size: 0.95em;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn:hover {
+            background: rgba(82, 183, 136, 0.15);
+            border-color: var(--forest-mid);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.15);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--forest-mid), var(--leaf-green));
+            color: var(--cream);
+            border-color: var(--forest-dark);
+            box-shadow: 0 10px 25px rgba(45, 106, 79, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Content Section */
+        .content {
+            padding: 60px 50px;
+            min-height: 700px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeInSoft 0.6s ease-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeInSoft {
+            from {
+                opacity: 0;
+                transform: translateY(-15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        .content h2 {
+            font-size: 2.3em;
+            color: var(--forest-dark);
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            border-bottom: 3px solid var(--sun-gold);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .content h2::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: -5px;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--forest-mid), var(--leaf-green));
+            border-radius: 4px;
+        }
+
+        .content h3 {
+            font-size: 1.5em;
+            color: var(--forest-mid);
+            margin: 35px 0 20px 0;
+            font-weight: 700;
+            padding-left: 15px;
+            border-left: 5px solid var(--sun-gold);
+        }
+
+        .content p {
+            margin-bottom: 22px;
+            text-align: justify;
+            font-size: 0.98em;
+            line-height: 1.9;
+            color: #4a4a4a;
+        }
+
+        .content ul, .content ol {
+            margin: 25px 0 25px 35px;
+        }
+
+        .content li {
+            margin-bottom: 16px;
+            line-height: 1.8;
+            font-size: 0.97em;
+        }
+
+        /* Card Components - Natural style */
+        .card {
+            background: linear-gradient(135deg, rgba(82, 183, 136, 0.08) 0%, rgba(45, 106, 79, 0.05) 100%);
+            border: 2px solid var(--leaf-green);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 28px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            backdrop-filter: blur(5px);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sun-gold), transparent);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .card:hover {
+            border-color: var(--forest-mid);
+            box-shadow: 0 15px 35px rgba(45, 106, 79, 0.12);
+            transform: translateY(-4px);
+        }
+
+        .card.critical {
+            background: linear-gradient(135deg, rgba(186, 85, 59, 0.08) 0%, rgba(139, 115, 85, 0.05) 100%);
+            border-color: #ba553b;
+        }
+
+        .card.critical::before {
+            background: linear-gradient(90deg, #ba553b, transparent);
+        }
+
+        .card.success {
+            background: linear-gradient(135deg, rgba(82, 183, 136, 0.12) 0%, rgba(45, 106, 79, 0.08) 100%);
+            border-color: var(--leaf-green);
+        }
+
+        .card strong {
+            color: var(--forest-mid);
+        }
+
+        /* Key Finding */
+        .key-finding {
+            background: linear-gradient(135deg, var(--forest-mid) 0%, var(--leaf-green) 100%);
+            color: var(--cream);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 30px 0;
+            font-weight: 600;
+            box-shadow: 0 12px 35px rgba(45, 106, 79, 0.2);
+            border-left: 5px solid var(--sun-gold);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .key-finding::before {
+            content: '✦';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.08;
+            top: -30px;
+            right: -30px;
+            color: var(--sun-gold);
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(45, 106, 79, 0.1);
+        }
+
+        table th {
+            background: linear-gradient(135deg, var(--forest-mid), var(--leaf-green));
+            color: var(--cream);
+            padding: 16px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95em;
+        }
+
+        table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--leaf-green);
+            font-size: 0.95em;
+        }
+
+        table tr:nth-child(even) {
+            background: rgba(82, 183, 136, 0.04);
+        }
+
+        table tr:hover {
+            background: rgba(82, 183, 136, 0.1);
+            transition: background 0.2s;
+        }
+
+        /* Metric Box - Nature inspired */
+        .metric-box {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--sun-gold), #e8c8a0);
+            padding: 25px 35px;
+            border-radius: 12px;
+            margin: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(139, 115, 85, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(139, 115, 85, 0.2);
+        }
+
+        .metric-box .value {
+            font-size: 2em;
+            font-weight: 800;
+            color: var(--forest-dark);
+            position: relative;
+            z-index: 1;
+        }
+
+        .metric-box .label {
+            font-size: 0.85em;
+            color: var(--forest-dark);
+            margin-top: 8px;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        /* Reference List */
+        .reference-list {
+            list-style: none;
+            counter-reset: ref-counter;
+        }
+
+        .reference-list li {
+            counter-increment: ref-counter;
+            margin-bottom: 18px;
+            padding-left: 45px;
+            position: relative;
+            font-size: 0.93em;
+            line-height: 1.75;
+        }
+
+        .reference-list li::before {
+            content: counter(ref-counter);
+            position: absolute;
+            left: 0;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--forest-mid), var(--leaf-green));
+            color: var(--cream);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--forest-mid), var(--leaf-green));
+            color: var(--cream);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge.critical {
+            background: linear-gradient(135deg, #ba553b, #8b7355);
+        }
+
+        .badge.warning {
+            background: linear-gradient(135deg, var(--sun-gold), #d4a574);
+            color: var(--forest-dark);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--forest-dark), var(--forest-mid));
+            color: var(--cream);
+            padding: 45px;
+            text-align: center;
+            font-size: 0.9em;
+            border-top: 3px solid var(--sun-gold);
+        }
+
+        .footer a {
+            color: var(--sun-gold);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer a:hover {
+            color: var(--cream);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                border-radius: 0;
+            }
+
+            .header {
+                padding: 50px 25px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .content {
+                padding: 35px 25px;
+                min-height: 600px;
+            }
+
+            .tabs {
+                padding: 15px;
+                gap: 8px;
+            }
+
+            .tab-btn {
+                padding: 10px 16px;
+                font-size: 0.85em;
+            }
+
+            .content h2 {
+                font-size: 1.7em;
+            }
+
+            .content h3 {
+                font-size: 1.2em;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            table th, table td {
+                padding: 10px 12px;
+            }
+
+            .metric-box {
+                display: block;
+                width: 100%;
+                margin: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌱 Fotovoltaik Surya Tropis</h1>
+            <div class="divider"></div>
+            <p class="subtitle">Analisis Kinerja Sistem untuk Penggunaan Residensial</p>
+            <p class="meta">Penelitian Energi Terbarukan di Wilayah Iklim Tropis Indonesia</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('abstrak')">📋 Abstrak</button>
+            <button class="tab-btn" onclick="showTab('pendahuluan')">🌍 Pendahuluan</button>
+            <button class="tab-btn" onclick="showTab('metodologi')">🔬 Metodologi</button>
+            <button class="tab-btn" onclick="showTab('hasil')">📊 Hasil & Analisis</button>
+            <button class="tab-btn" onclick="showTab('hambatan')">⚠️ Hambatan</button>
+            <button class="tab-btn" onclick="showTab('kesimpulan')">🌿 Kesimpulan</button>
+            <button class="tab-btn" onclick="showTab('referensi')">📚 Referensi</button>
+        </div>
+
+        <div class="content">
+            <!-- ABSTRAK -->
+            <div id="abstrak" class="tab-content active">
+                <h2>📋 Abstrak Penelitian</h2>
+
+                <div class="key-finding">
+                    Gangguan energi global yang didorong ketidakstabilan geopolitik telah meningkatkan urgensi transisi energi residensial menuju alternatif terbarukan. Penelitian ini menguji karakteristik kinerja sistem fotovoltaik (PV) surya dalam kondisi iklim tropis dan menilai kelayakan mereka untuk aplikasi residensial di Indonesia.
+                </div>
+
+                <h3>Fokus Penelitian</h3>
+                <p>Tinjauan literatur sistematis dilakukan di seluruh basis data akademis utama (<strong>Scopus, Web of Science, Google Scholar</strong>), ditambah dengan data sekunder dari Global Solar Atlas, ESDM Indonesia, IESR, dan IRENA untuk menganalisis:</p>
+
+                <ul>
+                    <li>Efek kondisi iklim tropis pada kinerja sistem PV</li>
+                    <li>Distribusi regional potensi energi surya di seluruh Indonesia</li>
+                    <li>Faktor-faktor teknis, ekonomi, dan regulasi yang membatasi adopsi rumah tangga</li>
+                </ul>
+
+                <h3>Temuan Kritis</h3>
+                <div class="card success">
+                    <p>Kondisi operasi tropis menimbulkan <strong>penalti kinerja yang terukur</strong>:</p>
+                    <ul style="margin-top: 15px;">
+                        <li>🌡️ <strong>Tingkat degradasi tahunan:</strong> 2,2–3,7% (Tropis) vs 0,5–0,8% (Zona sedang)</li>
+                        <li>☀️ <strong>Suhu ambien:</strong> Melebihi 30°C dengan kelembaban tinggi</li>
+                        <li>💡 <strong>Potensi Nasional:</strong> 210 GWp total, hanya 0,3% yang termanfaatkan</li>
+                    </ul>
+                </div>
+
+                <h3>Kesimpulan Abstrak</h3>
+                <p>Meskipun menghadapi tantangan iklim tropis, penyebaran PV surya residensial di Indonesia secara teknis dan ekonomis dapat dilakukan, tetapi <strong>bergantung pada reformasi regulasi yang ditargetkan dan mekanisme dukungan keuangan dari sisi permintaan</strong>.</p>
+
+                <div class="metric-box">
+                    <div class="value">210 GWp</div>
+                    <div class="label">Potensi Surya Nasional</div>
+                </div>
+
+                <div class="metric-box">
+                    <div class="value">32,5 GW</div>
+                    <div class="label">Potensi PV Atap</div>
+                </div>
+
+                <div class="metric-box">
+                    <div class="value">2,95%</div>
+                    <div class="label">Degradasi Tahunan Tropis</div>
+                </div>
+            </div>
+
+            <!-- PENDAHULUAN -->
+            <div id="pendahuluan" class="tab-content">
+                <h2>🌍 Pendahuluan</h2>
+
+                <h3>Krisis Energi & Ketergantungan pada Fosil</h3>
+                <p>Lanskap energi global mengalami gangguan yang belum pernah terjadi sebelumnya. Sekitar <strong>20 juta barel minyak mentah</strong> melewati Selat Hormuz setiap hari, dan tidak ada kapasitas berlebih di dunia yang dapat mengisi celah jika rute tersebut terputus.</p>
+
+                <div class="key-finding">
+                    Bagi negara-negara pengimpor energi di Asia, termasuk Indonesia, ini adalah <strong>ancaman langsung terhadap biaya listrik, subsidi bahan bakar, dan keamanan energi rumah tangga</strong>.
+                </div>
+
+                <h3>Konteks Indonesia</h3>
+                <p>Ketergantungan Indonesia pada bahan bakar fosil tetap sangat dalam:</p>
+                <ul>
+                    <li><strong>75%</strong> - Pembangkit listrik berbahan bakar batu bara</li>
+                    <li>Minyak impor dan LNG menopang pasokan energi residensial</li>
+                    <li>Negara pengimpor tidak memiliki solusi kebijakan segera untuk mitigasi</li>
+                </ul>
+
+                <h3>Peluang: Transisi ke Energi Terbarukan</h3>
+                <div class="card">
+                    <p>Krisis ini menyajikan peluang untuk mempertimbangkan kembali strategi energi. <strong>Salah satu respons paling dapat ditindaklanjuti adalah mempercepat transisi ke energi terbarukan, khususnya surya</strong>, mengingat potensi besar di Global Selatan termasuk Indonesia.</p>
+                </div>
+
+                <h3>Gap Antara Potensi dan Realisasi</h3>
+                <div class="card critical">
+                    <p>⚡ <strong>Pemanfaatan potensi surya Indonesia masih sangat rendah:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>Kurang dari <strong>0,1%</strong> dari total potensi (210 GWp) telah dimanfaatkan per 2023</li>
+                        <li>Dari kapasitas atap 32,5 GW, hanya <strong>95 MW (0,3%)</strong> beroperasi per Juni 2023</li>
+                        <li>Kesenjangan ini bukan kegagalan teknis, melainkan kombinasi hambatan kebijakan, infrastruktur, dan data</li>
+                    </ul>
+                </div>
+
+                <h3>Mengapa Sektor Residensial?</h3>
+                <p>Sektor residensial khususnya tidak terlayani dengan baik oleh penelitian yang ada. Sebagian besar data kinerja PV berasal dari <strong>iklim sedang di Eropa dan Amerika Utara</strong>, tempat profil irradians, rentang suhu, dan kelembaban berbeda substansial dari kondisi tropis.</p>
+
+                <p>Dalam iklim equatorial Indonesia, <strong>suhu ambien tinggi dan awan persisten</strong> menciptakan dinamika degradasi yang tidak dapat diekstrapolasi dari studi zona sedang. Penelitian ini bertujuan mengatasi kesenjangan tersebut melalui analisis holistik terhadap kinerja PV di konteks tropis Indonesia.</p>
+            </div>
+
+            <!-- METODOLOGI -->
+            <div id="metodologi" class="tab-content">
+                <h2>🔬 Metodologi Penelitian</h2>
+
+                <p>Penelitian ini menggunakan kombinasi <strong>tinjauan literatur sistematis</strong> dan <strong>analisis data sekunder</strong> untuk menguji kinerja sistem fotovoltaik surya dalam kondisi iklim tropis dan menilai kelayakan penggunaan residensial di Indonesia.</p>
+
+                <h3>Strategi Pencarian Literatur</h3>
+                <p>Pencarian terstruktur dilakukan di tiga basis data akademis:</p>
+
+                <div class="card success">
+                    <ul>
+                        <li>📊 <strong>Scopus</strong> - Database penelitian terlengkap</li>
+                        <li>🔍 <strong>Web of Science</strong> - Jurnal peer-review berkualitas tinggi</li>
+                        <li>📚 <strong>Google Scholar</strong> - Cakupan publikasi yang luas</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Istilah Pencarian:</strong> Fotovoltaik surya, Kinerja PV, Iklim tropis, PV atap residensial, Indonesia, Transisi energi terbarukan</p>
+                    <p style="margin-top: 10px;"><strong>Rentang Waktu:</strong> 2015–2025 untuk relevansi dengan standar teknologi dan kondisi kebijakan saat ini</p>
+                </div>
+
+                <h3>Kriteria Inklusi & Eksklusi</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Kriteria Inklusi</th>
+                            <th>Kriteria Eksklusi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>✓ Data kinerja PV empiris/simulasi</td>
+                            <td>✗ Fokus eksklusif pada sistem utilitas</td>
+                        </tr>
+                        <tr>
+                            <td>✓ Zona iklim tropis/equatorial</td>
+                            <td>✗ Wilayah non-tropis</td>
+                        </tr>
+                        <tr>
+                            <td>✓ Generasi residensial/skala kecil</td>
+                            <td>✗ Tanpa metrik kinerja terukur</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Sumber Data Sekunder</h3>
+                <div class="card">
+                    <p><strong>Data Kuantitatif:</strong></p>
+                    <ul style="margin-top: 12px;">
+                        <li>🗺️ <strong>Global Solar Atlas</strong> - Irradians resolusi 250 meter di seluruh Indonesia</li>
+                        <li>⚡ <strong>ESDM Indonesia</strong> - Statistik energi nasional dan target kebijakan</li>
+                        <li>📈 <strong>IESR & IRENA</strong> - Laporan outlook energi dan benchmarking global</li>
+                    </ul>
+                </div>
+
+                <h3>Pendekatan Analisis Data</h3>
+                <p>Data disintesiskan menggunakan <strong>pendekatan tabulasi komparatif</strong>:</p>
+                <ul>
+                    <li>Metrik kinerja diatur menurut variabel iklim (suhu, kelembaban, irradians)</li>
+                    <li>Data potensi regional dipetakan terhadap kapasitas instalasi yang ada</li>
+                    <li>Variabel regulasi dan ekonomi dianalisis secara deskriptif</li>
+                </ul>
+
+                <p style="margin-top: 20px;"><strong>Catatan:</strong> Penelitian ini bersifat kualitatif-deskriptif; tidak ada pengumpulan data primer, pengukuran lapangan, atau prosedur eksperimental yang dilakukan.</p>
+            </div>
+
+            <!-- HASIL & ANALISIS -->
+            <div id="hasil" class="tab-content">
+                <h2>📊 Hasil & Analisis Kinerja</h2>
+
+                <h3>Kinerja PV Surya di Iklim Tropis</h3>
+                <p>Berbagai faktor lingkungan mengendalikan kinerja fotovoltaik di iklim tropis, menciptakan penalti kinerja yang terukur dibandingkan lingkungan operasi iklim sedang.</p>
+
+                <div class="key-finding">
+                    🌡️ <strong>Faktor Dominan: SUHU</strong><br>
+                    Modul silikon kristal menunjukkan koefisien suhu daya sekitar <strong>-0,4% hingga -0,5% per °C</strong> di atas STC. Modul yang beroperasi pada 65°C kehilangan kira-kira <strong>16–20%</strong> dari output yang dinilai karena efek termal saja.
+                </div>
+
+                <h3>Pengaruh Lingkungan Tropis</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Faktor Lingkungan</th>
+                            <th>Dampak pada Kinerja</th>
+                            <th>Tingkat Pengaruh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Suhu (>30°C)</strong></td>
+                            <td>Menurunkan efisiensi PV secara langsung</td>
+                            <td>🔴 DOMINAN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kelembaban Tinggi</strong></td>
+                            <td>Mengurangi penetrasi cahaya & mempercepat degradasi</td>
+                            <td>🟡 SIGNIFIKAN</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paparan Garam (Pesisir)</strong></td>
+                            <td>Korosi elektrochemical & kerusakan material</td>
+                            <td>🟡 KRITIS di pesisir</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Debu & Polusi</strong></td>
+                            <td>Membatasi penerimaan cahaya matahari</td>
+                            <td>🟢 MODERATE</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Tingkat Degradasi: Perbandingan Iklim</h3>
+                <div class="card critical">
+                    <p>📉 <strong>Bukti Kritis dari Literatur:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Iklim Tropis (Indonesia):</strong> 2,2–3,7% degradasi tahunan</li>
+                        <li><strong>Iklim Sedang (Eropa):</strong> 0,5–0,8% degradasi tahunan</li>
+                        <li><strong>Implikasi:</strong> Iklim tropis mengalami degradasi <strong>4–5x lebih tinggi</strong> daripada zona sedang</li>
+                    </ul>
+                </div>
+
+                <h3>Implikasi untuk Sistem Residensial di Indonesia</h3>
+
+                <h4 style="color: var(--forest-mid); margin-top: 25px;">1️⃣ Oversizing Sistem (10–15% lebih besar)</h4>
+                <p>Sistem harus di-oversizing untuk mengkompensasi degradasi iklim. Sebuah sistem yang dirancang untuk menghasilkan 3 kWp di iklim temperat akan menghasilkan hanya <strong>2,5–2,7 kWp</strong> di Indonesia dalam jangka panjang (10–15 tahun).</p>
+
+                <h4 style="color: var(--forest-mid); margin-top: 25px;">2️⃣ Pemilihan Material Berkualitas</h4>
+                <p>Panel berkualitas tinggi dengan enkapsulant tahan kelembaban dan inverter dengan rating temperature tinggi sangat direkomendasikan. Ini berarti biaya upfront lebih tinggi 10–15%, tetapi memastikan reliability dan longevity lebih baik.</p>
+
+                <h4 style="color: var(--forest-mid); margin-top: 25px;">3️⃣ Maintenance Plan yang Terstruktur</h4>
+                <p>Cleaning regular dapat menjaga output tetap optimal:</p>
+                <ul>
+                    <li>Setiap <strong>1–2 bulan</strong> di daerah dusty</li>
+                    <li>Setiap <strong>3 bulan</strong> di daerah normal</li>
+                </ul>
+                <p>Monitoring sistem melalui app atau data logger sangat direkomendasikan untuk mendeteksi degradasi dini.</p>
+
+                <h3>Potensi Surya Indonesia yang Luar Biasa</h3>
+                <div class="key-finding">
+                    ☀️ <strong>Indonesia menerima irradians horizontal global (GHI) harian rata-rata:</strong><br>
+                    <strong>4,5–5,1 kWh/m²/hari</strong> di seluruh sebagian besar wilayahnya. Wilayah timur (Sulawesi, Nusa Tenggara, Papua) mencatat nilai-nilai tertinggi secara nasional.
+                </div>
+
+                <h3>Distribusi Sumber Daya Surya Regional</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Wilayah</th>
+                            <th>GHI (kWh/m²/hari)</th>
+                            <th>Potensi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Jawa</strong></td>
+                            <td>4,8–5,0</td>
+                            <td>Excellent, infrastruktur terbaik</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sumatera</strong></td>
+                            <td>4,5–4,8</td>
+                            <td>Good, variasi musiman</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sulawesi</strong></td>
+                            <td>4,9–5,1</td>
+                            <td>Highest potential, layanan terbatas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eastern Indonesia</strong></td>
+                            <td>5,0–5,1</td>
+                            <td>Excellent namun infrastruktur minimal</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Analisis Viabilitas Ekonomi</h3>
+                <div class="card success">
+                    <p><strong>Profil Konsumsi & Finansial Rumah Tangga Tipikal:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>📊 Konsumsi: 150–200 kWh/bulan</li>
+                        <li>💰 Tarif: Rp 1.450/kWh</li>
+                        <li>🔋 Sistem tipikal: 3 kWp</li>
+                        <li>💵 Investasi: Rp 41,8 juta (hardware + instalasi)</li>
+                    </ul>
+                </div>
+
+                <div class="metric-box">
+                    <div class="value">10–12 tahun</div>
+                    <div class="label">Payback Period (Ideal)</div>
+                </div>
+
+                <div class="metric-box">
+                    <div class="value">Rp 18–22 juta</div>
+                    <div class="label">NPV 20 Tahun (5% discount)</div>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Kesimpulan Analisis:</strong> Dari perspektif ekonomi murni, residential PV adalah investasi yang sound dan attractive untuk middle-income urban households di Indonesia. Hambatan adopsi bukan pada economics, melainkan pada aspek financing accessibility, regulatory uncertainty, dan consumer awareness.</p>
+            </div>
+
+            <!-- HAMBATAN -->
+            <div id="hambatan" class="tab-content">
+                <h2>⚠️ Hambatan & Faktor Pendukung</h2>
+
+                <h3>Hambatan Regulasi (KRITIS)</h3>
+                <div class="card critical">
+                    <p>Trajektori regulasi kebijakan PV atap Indonesia mengilustrasikan kerentanan adopsi yang didorong insentif:</p>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>2018:</strong> Permen No. 49 - Net metering 65% dari tarif ritel ✓</li>
+                        <li><strong>2021:</strong> Permen No. 26 - Ekspor 100% kredit (sangat menarik) ✓✓</li>
+                        <li><strong>2024:</strong> Permen No. 2 - Menghilangkan insentif net metering ✗✗✗</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Dampak:</strong> Mengurangi pipeline proyek residential sebesar <strong>75%</strong> dalam Q1 2024!</p>
+                </div>
+
+                <h3>Hambatan Finansial (KRITIS)</h3>
+                <div class="card">
+                    <p><strong>Meskipun biaya PV telah turun 85% sejak 2010 secara global, hambatan finansial tetap signifikan:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>🏦 <strong>Akses Kredit:</strong> Bank menuntut collateral (sertifikat properti)</li>
+                        <li>⏱️ <strong>Durasi Kredit:</strong> Hanya 3–5 tahun dengan suku bunga >15%, tidak cocok untuk PV 10–25 tahun</li>
+                        <li>📋 <strong>Program Pemerintah:</strong> Terbatas dan proses approval lambat (3–6 bulan)</li>
+                    </ul>
+                </div>
+
+                <h3>Hambatan Teknis & Infrastruktur</h3>
+                <p>Hambatan spesifik meliputi:</p>
+                <ul>
+                    <li>Prosedur dan jadwal izin koneksi jaringan tidak jelas</li>
+                    <li>Ketiadaan standar kode bangunan PV atap yang terstandar</li>
+                    <li>Ambiguitas mengenai tanggung jawab interkoneksi (PLN vs. rumah tangga)</li>
+                    <li>Kurangnya mekanisme pemantauan kinerja atau penegakan garansi</li>
+                </ul>
+
+                <h3>Hambatan Informasi & Pengetahuan (DAPAT DIATASI)</h3>
+                <div class="card success">
+                    <p><strong>Gap Pengetahuan Konsumen yang Signifikan:</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li>📚 <strong>60–70%</strong> rumah tangga: Pemahaman terbatas tentang cara kerja PV</li>
+                        <li>❌ <strong>40–50%</strong> hot prospects: Mengira ROI >20 tahun (padahal 10–15 tahun)</li>
+                        <li>⚙️ <strong>Ketidaktahuan:</strong> Biaya maintenance, proses aplikasi, timeline instalasi</li>
+                        <li>⚡ <strong>Persepsi Risiko:</strong> Reliabilitas panel, degradasi, kegagalan sistem</li>
+                    </ul>
+                </div>
+
+                <p style="margin-top: 20px;"><strong>Solusi:</strong> Program edukasi konsumen dengan investasi Rp 10–20 miliar untuk pilot di 5 kota dapat mengurangi hambatan informasi dalam 1–2 tahun, membuka peluang adopsi yang lebih luas.</p>
+
+                <h3>Faktor Pendukung untuk Akselerasi</h3>
+                <div class="key-finding">
+                    Five Main Enabling Factors Timeline 2024–2026:<br><br>
+                    1. 💰 Cost Decline (CAGR 8–10%/tahun)<br>
+                    2. 👷 Certified Installers Growth (1.500 → 4.000+)<br>
+                    3. 🏢 Corporate Support dari PLN, Pertamina, PTBA<br>
+                    4. 📋 Tech Standardization dengan SNI 7909:2024<br>
+                    5. 💳 Fintech Innovation (P2P lending & subscription)
+                </div>
+            </div>
+
+            <!-- KESIMPULAN -->
+            <div id="kesimpulan" class="tab-content">
+                <h2>🌿 Kesimpulan Penelitian</h2>
+
+                <div class="key-finding">
+                    Sistem PV surya dapat menjadi solusi teknologi yang <strong>layak dan ekonomis</strong> untuk memenuhi permintaan energi residensial di Indonesia, meskipun menghadapi tantangan operasional unik dalam iklim tropis.
+                </div>
+
+                <h3>Temuan Teknis</h3>
+                <div class="card success">
+                    <p>Meskipun tingkat degradasi lebih tinggi dan efisiensi modul berkurang dalam kondisi panas dan lembab:</p>
+                    <ul style="margin-top: 15px;">
+                        <li>✓ Potensi sumber daya surya Indonesia tetap <strong>luar biasa</strong> (4,5–5,1 kWh/m²/hari)</li>
+                        <li>✓ Dengan rata-rata GHI dan potensi atap 32,5 GW, tetap <strong>ekonomis menarik</strong></li>
+                        <li>✓ Dapat diintegrasikan dalam sistem energi residensial yang sustainable</li>
+                    </ul>
+                </div>
+
+                <h3>Hambatan Utama: Kebijakan & Regulasi</h3>
+                <div class="card critical">
+                    <p>Penghapusan sistem net metering pada 2024 telah menghilangkan <strong>mekanisme insentif paling efektif</strong>. Tanpa reformasi regulasi yang ditargetkan, tingkat adopsi akan tetap terhambat secara signifikan.</p>
+                </div>
+
+                <h3>Tiga Kondisi Penting untuk Kesuksesan</h3>
+
+                <h4 style="color: var(--forest-mid);">1️⃣ Reformasi Kebijakan Jangka Panjang</h4>
+                <p>Membuat insentif ekonomi transparan dan stabil untuk jangka panjang (minimal 5–10 tahun) untuk memberikan certainty kepada investasi. Pemerintah harus mengembangkan framework regulasi yang tidak berubah secara mendadak.</p>
+
+                <h4 style="color: var(--forest-mid); margin-top: 25px;">2️⃣ Pembiayaan Inovatif yang Accessible</h4>
+                <p>Mengembangkan mekanisme pembiayaan yang dapat diakses oleh rumah tangga menengah ke bawah:</p>
+                <ul>
+                    <li>Hipotek hijau dengan bunga rendah</li>
+                    <li>Pinjaman surya bersubsidi</li>
+                    <li>Pembiayaan on-bill terintegrasi dengan tagihan listrik</li>
+                    <li>Kolaborasi dengan fintech dan lembaga keuangan mikro</li>
+                </ul>
+
+                <h4 style="color: var(--forest-mid); margin-top: 25px;">3️⃣ Investasi Berkelanjutan dalam Penelitian & Pelatihan</h4>
+                <p>Mendukung penelitian berbasis data jangka panjang dan program pelatihan teknis untuk:</p>
+                <ul>
+                    <li>Membangun kepercayaan konsumen melalui edukasi terstruktur</li>
+                    <li>Standardisasi instalasi dan praktik terbaik</li>
+                    <li>Pengembangan kapasitas institusional</li>
+                    <li>Target: 4.000+ certified installers & 500+ training centers by 2026</li>
+                </ul>
+
+                <div class="card success" style="margin-top: 30px;">
+                    <p><strong>🎯 Proyeksi Dampak:</strong> Implementasi ketiga elemen ini secara sinergis dapat:</p>
+                    <ul style="margin-top: 15px;">
+                        <li>⚡ Membuka kontribusi <strong>2–3% dari bauran EBT nasional pada 2030</strong></li>
+                        <li>🌍 Mengurangi <strong>emisi karbon signifikan</strong> untuk target Net Zero Emission 2060</li>
+                        <li>💼 Pemberdayaan ekonomi masyarakat lokal melalui penyebaran teknologi sustainable</li>
+                        <li>🏡 Meningkatkan energi resilience dan independensi rumah tangga</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 35px;">Pernyataan Penutup</h3>
+                <div class="key-finding">
+                    Penyebaran PV surya residensial di Indonesia secara teknis dan ekonomis <strong>dapat dilakukan</strong>, tetapi memerlukan komitmen pada tiga kondisi penting: <strong>reformasi kebijakan yang stabil, pembiayaan inovatif yang accessible, dan investasi berkelanjutan dalam penelitian & pelatihan</strong>. Dengan komitmen ini, Indonesia dapat mencapai transformasi energi yang clean, resilient, dan inclusive untuk rumah tangga di seluruh negeri, sambil berkontribusi pada target keberlanjutan global dan keamanan energi nasional.
+                </div>
+            </div>
+
+            <!-- REFERENSI -->
+            <div id="referensi" class="tab-content">
+                <h2>📚 Daftar Pustaka</h2>
+                <p style="margin-bottom: 30px; font-style: italic;">Disusun berdasarkan format APA 7th Edition</p>
+
+                <ul class="reference-list">
+                    <li>AESI. (2023). <em>Indonesia solar map: Grid integration capacity and rooftop PV potential</em>. Asosiasi Energi Surya Indonesia.</li>
+                    <li>Agustar, A., & Prawiraatmadja, W. (2024). A system dynamics model for rooftop solar PV system development in Indonesia. <em>International Journal of Current Science Research and Review</em>, 7(6), 3891–3902.</li>
+                    <li>Alavi, O., Hooshmand Viki, A., & Moghbeli, H. (2024). Assessing the impact of PV panel climate-based degradation rates on inverter reliability in grid-connected solar energy systems. <em>Heliyon</em>, 10(3), e25839.</li>
+                    <li>Bernal-del Río, S., Aparisi-Cerdá, I., Luján, C., Ferrer, S., & Osorio-Gómez, G. (2025). Differences in the perception of drivers and barriers to the adoption of decentralised renewable energy technologies. <em>Clean Technologies and Environmental Policy</em>.</li>
+                    <li>Global Solar Atlas. (2024). <em>Solar resource data for Indonesia</em>. World Bank Group / Solargis. Retrieved from https://globalsolaratlas.info</li>
+                    <li>IMARC Group. (2024). <em>Indonesia solar energy market report: Size, share, trends and forecast 2024–2033</em>. IMARC Group.</li>
+                    <li>Institute for Essential Services Reform (IESR). (2022). <em>Indonesia solar energy outlook 2023</em>. IESR. Retrieved from https://iesr.or.id</li>
+                    <li>Institute for Essential Services Reform (IESR). (2024). <em>Impact assessment of Ministerial Regulation No. 2/2024 on residential rooftop PV adoption in Indonesia</em>. IESR.</li>
+                    <li>International Renewable Energy Agency (IRENA). (2022). <em>Indonesia energy transition outlook 2022</em>. IRENA. Retrieved from https://www.irena.org</li>
+                    <li>Johari, A., Ramli, N. A., & Alias, A. (2024). Electrical performance and degradation analysis of field-aged PV modules in tropical climates: A comparative experimental study. <em>Solar Energy Advances</em>, 4, 100051.</li>
+                    <li>Kementerian Energi dan Sumber Daya Mineral (ESDM). (2024). <em>Potensi dan target pengembangan energi surya nasional 2024–2050</em>. Kementerian ESDM RI.</li>
+                    <li>Mangkuto, R. A., Paramita, B., Wibowo, A. S., & Koerniawan, M. D. (2024). Energy yield of solar PV in 34 Indonesian cities with respect to various roof pitches and orientations. <em>International Journal of Environmental Science and Technology</em>, 21, 4123–4138.</li>
+                    <li>Maqsoom, A., Khan, H., Mazher, K. M., & Yousaf, M. (2024). Barriers to solar PV adoption in developing countries. <em>Sustainability</em>, 16(3), 1032.</li>
+                    <li>Sabry, A. H., Ab Aziz, N. F., Salim, N. A. W., & Chong, W. T. (2025). Performance evaluation and degradation analysis of grid connected photovoltaic systems for energy efficient buildings in tropical climates. <em>Scientific Reports</em>, 15, 4821.</li>
+                    <li>Silalahi, R., Manyoe, F., Hardianto, H., & Harahap, F. (2021). Solar potential assessment for distributed photovoltaic systems in tropical regions. <em>Renewable Energy</em>, 170, 1245–1259.</li>
+                </ul>
+
+                <div class="card success" style="margin-top: 40px;">
+                    <p><strong>📄 Informasi Publikasi Lengkap</strong></p>
+                    <ul style="margin-top: 15px;">
+                        <li><strong>Penulis:</strong> Riskayani, Alif Irfan, Megie Dian Marina Bisay</li>
+                        <li><strong>Afiliasi:</strong> WorldQuant University, Universitas Islam Sultan Agung, Indonesian European University</li>
+                        <li><strong>Email Korespondensi:</strong> riskayanisultan05@gmail.com</li>
+                        <li><strong>Topik:</strong> Energi Terbarukan, Transisi Energi, Kebijakan Energi Indonesia</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>🌱 Sistem Fotovoltaik Surya untuk Penggunaan Residensial di Wilayah Iklim Tropis Indonesia</strong></p>
+            <p>© 2025 Riskayani | Alif Irfan | Megie Dian Marina Bisay</p>
+            <p>Penelitian Energi Terbarukan dan Transisi Energi Indonesia</p>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
